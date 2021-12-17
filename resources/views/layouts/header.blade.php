@@ -187,7 +187,7 @@ table#dataTable {
           
              @if($role == "Admin" || ($role =='User'))    
             <li class="nav-item">
-              <a class="sidebar-link" href="{!! asset('item/list') !!}"><span class="icon-holder"><img src="{!! asset('assets/static/images/icon6.png') !!}" alt=""style="width: 84%;" > </span><span class="title">Item</span>
+              <a class="sidebar-link" href="{!! asset('item') !!}"><span class="icon-holder"><img src="{!! asset('assets/static/images/icon6.png') !!}" alt=""style="width: 84%;" > </span><span class="title">Item</span>
               </a>
             </li>
             @endif
@@ -195,7 +195,7 @@ table#dataTable {
             @if($role == "Admin" || ($role =='User'))
           
             <li class="nav-item">
-              <a class="sidebar-link" href="{!! asset('tool/list') !!}"><span class="icon-holder"><img src="{!! asset('assets/static/images/icon7.png') !!}" alt=""style="width: 84%;" > </span><span class="title">Tools</span>
+              <a class="sidebar-link" href="{!! asset('tool') !!}"><span class="icon-holder"><img src="{!! asset('assets/static/images/icon7.png') !!}" alt=""style="width: 84%;" > </span><span class="title">Tools</span>
               </a>
             </li>
             @endif
@@ -205,7 +205,7 @@ table#dataTable {
             @if($role == "Admin" || ($role =='User'))
             
             <li class="nav-item">
-              <a class="sidebar-link" href="{!! asset('expence/list') !!}"><span class="icon-holder"><img src="{!! asset('assets/static/images/icon8.png') !!}" alt=""style="width: 84%;" > </span><span class="title">Expense Type</span>
+              <a class="sidebar-link" href="{!! asset('expence_type') !!}"><span class="icon-holder"><img src="{!! asset('assets/static/images/icon8.png') !!}" alt=""style="width: 84%;" > </span><span class="title">Expense Type</span>
               </a>
             </li>
             @endif
@@ -220,7 +220,7 @@ table#dataTable {
             @if($role == "Admin" || ($role =='User')) 
        
             <li class="nav-item">
-              <a class="sidebar-link" href="{!! asset('truck/list') !!}"><span class="icon-holder"><img src="{!! asset('assets/static/images/icon10.png') !!}" alt=""style="width: 84%;" > </span><span class="title">Trucks</span>
+              <a class="sidebar-link" href="{!! asset('truck') !!}"><span class="icon-holder"><img src="{!! asset('assets/static/images/icon10.png') !!}" alt=""style="width: 84%;" > </span><span class="title">Trucks</span>
               </a>
             </li>
 

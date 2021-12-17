@@ -11,6 +11,10 @@ use App\Http\Controllers\LoadcontenerController;
 use App\Http\Controllers\LoadbuilderController;
 use App\Http\Controllers\LoadAssignToDriver;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ToolController;
+use App\Http\Controllers\ExpenceTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,13 +105,6 @@ Route::group(['middleware' => ['auth']], function() {
    Route::post('deljob', [LoadAssignToDriver::class, 'deljob']);    //done
    Route::post('updatelannumber', [LoadAssignToDriver::class, 'updatelannumber']);    //done
    
-  
-   
-
-   
-   
-   
-   
     
       
          //    **********************************
@@ -119,6 +116,28 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('driverstatusupdate/{id}', [DriverController::class, 'driverstatusupdate'])->name('driverstatusupdate');
     Route::get('driverinctive/{id}', [DriverController::class, 'driverinctive'])->name('driverinctive');
 
-       
+    //************************* shipping_address */ 
+
+    Route::get('shipping_address', [Controller::class, 'shipping_address']);
+    Route::get('viewshipinng/{id}', [Controller::class, 'viewshipinng']);
+
+
+   //************************* item */ 
+
+   Route::resource('item', ItemController::class); 
+   Route::get('iteminctive/{id}', [ItemController::class, 'iteminctive'])->name('iteminctive');
+   Route::get('itemstatusupdate/{id}', [ItemController::class, 'itemstatusupdate'])->name('itemstatusupdate');
+
+   
+      //************************* tools */ 
+   Route::resource('tool', ToolController::class); 
+   Route::get('toolinctive/{id}', [ToolController::class, 'toolinctive'])->name('toolinctive');
+   Route::get('toolstatusupdate/{id}', [ToolController::class, 'toolstatusupdate'])->name('toolstatusupdate');
+
+    //************************* ExpenceTypeController */ 
+    Route::resource('expence_type', ExpenceTypeController::class); 
+    Route::get('expenseinctive/{id}', [ExpenceTypeController::class, 'expenseinctive'])->name('expenseinctive');
+    Route::get('expensestatusupdate/{id}', [ExpenceTypeController::class, 'expensestatusupdate'])->name('expensestatusupdate');
+
 });
 

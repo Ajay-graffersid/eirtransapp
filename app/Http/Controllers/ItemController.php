@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use DB;
 
 class ItemController extends Controller
 {
@@ -14,7 +15,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $item = DB::select('select * from items');
+     return view('item.index',['items'=>$item]);
     }
 
     /**
@@ -24,7 +26,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('item.create');
     }
 
     /**
@@ -35,8 +37,27 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required|unique:items,name',
+           
+        ]);
+      
+        $name= $request->input('name');
+            
+        DB::table('items')->insert(
+            ['name' =>$name ]
+        );	 
+        
+      
+      $msg="Item added successfully.";
+      
+      $request->session()->flash('msg', $msg);
+		 
+	  	 return redirect()->route('item.index');
+		
+    
+}
+
 
     /**
      * Display the specified resource.
@@ -57,7 +78,7 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
-        //
+        return view('item.edit',compact('item'));
     }
 
     /**
@@ -69,7 +90,19 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:items,name',
+           
+        ]);
+        
+        Item::where('id', $item->id)
+       ->update([
+           'name' => $request->name,
+          
+        ]);
+    
+        return redirect()->route('item.index')
+                        ->with('msg','Item updated successfully');
     }
 
     /**
@@ -80,6 +113,27 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+    
+        return redirect()->route('item.index')
+                        ->with('msg','Item deleted successfully');
+    }
+
+    public function iteminctive(Request $request,$id)
+    {
+    //    $lane = Lane::find($request->id);
+       $users = DB::update('update items set status = ? where id = ?',[0,$request->id]);
+       
+       return redirect()->route('item.index');
+  
+    }
+
+    public function itemstatusupdate(Request $request,$id)
+    {
+    //    $lane = Lane::find($request->id);
+       $users = DB::update('update  items set status = ? where id = ?',[1,$request->id]);
+       
+       return redirect()->route('item.index');
+  
     }
 }

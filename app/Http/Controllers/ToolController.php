@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tool;
 use Illuminate\Http\Request;
+use DB;
 
 class ToolController extends Controller
 {
@@ -14,7 +15,8 @@ class ToolController extends Controller
      */
     public function index()
     {
-        //
+        $tools = DB::select('select * from tools');
+        return view('tools.index',['tools'=>$tools]);
     }
 
     /**
@@ -24,7 +26,7 @@ class ToolController extends Controller
      */
     public function create()
     {
-        //
+        return view('tools.create');
     }
 
     /**
@@ -35,7 +37,23 @@ class ToolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:tools,name',
+           
+        ]);
+      
+        $name= $request->input('name');
+            
+        DB::table('tools')->insert(
+            ['name' =>$name ]
+        );	 
+        
+      
+      $msg="tool added successfully.";
+      
+      $request->session()->flash('msg', $msg);
+		 
+	  	 return redirect()->route('tool.index');
     }
 
     /**
@@ -57,7 +75,7 @@ class ToolController extends Controller
      */
     public function edit(Tool $tool)
     {
-        //
+        return view('tools.edit',compact('tool'));
     }
 
     /**
@@ -69,7 +87,19 @@ class ToolController extends Controller
      */
     public function update(Request $request, Tool $tool)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:tools,name',
+           
+        ]);
+        
+        Tool::where('id', $tool->id)
+       ->update([
+           'name' => $request->name,
+          
+        ]);
+    
+        return redirect()->route('tool.index')
+                        ->with('msg','tool updated successfully');
     }
 
     /**
@@ -80,6 +110,26 @@ class ToolController extends Controller
      */
     public function destroy(Tool $tool)
     {
-        //
+        $tool->delete();
+    
+        return redirect()->route('tool.index')
+                        ->with('msg','tool deleted successfully');
+    }
+
+
+    public function toolstatusupdate(Request $request,$id)
+    {
+    //    $lane = Tool::find($request->id);
+       $users = DB::update('update  tools set status = ? where id = ?',[1,$request->id]);
+       return redirect()->route('tool.index');
+  
+    }
+    
+    public function toolinctive(Request $request,$id)
+    {
+    //    $lane = Lane::find($request->id);
+       $users = DB::update('update tools set status = ? where id = ?',[0,$request->id]);
+       return redirect()->route('tool.index');
+  
     }
 }
