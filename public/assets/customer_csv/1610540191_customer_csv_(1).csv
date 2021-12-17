@@ -1,0 +1,4 @@
+Customer_Name,TAN_Number,EORI_number,EMAIL_Address,Customer_Address,City,Country,County,Post_Code,Customer_Contact,Notes
+Mark,MTAN254,MEORI4547,info@mark.com,"1221, London, UK",abc,abc,abc,1212,5445454,for test
+Charles,CTAN447,CEORI447,info@charles.com,"1221, Dublin, Ireland",def,ded,def,2321,77444485,demmo
+Maruti,mar46,1234,mar@gmail.com,"121,wexford,ireland",ghi,ghi,ghi,6589,5665415252,desater

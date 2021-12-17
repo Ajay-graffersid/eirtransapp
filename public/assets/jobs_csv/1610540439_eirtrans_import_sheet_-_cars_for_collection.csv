@@ -1,0 +1,9 @@
+Customer,Make,Model,VIN_Number,Car_Reg,Location,Collection_Address,Delivery_Address,Booking_Date,Lane,EORI,COMM_CODE,Weight,Currency,Value,Ship_IMO,ETA,Bill_of_Laden,Description,Invoice_Ref,Rate
+Mark,2011,mar121,Mar23, mar54321,UK,Estel Ireland,"1221, London, UK",2021-01-13,7,MEORI4547,5445454,2,£,201,mar211,2021-01-13,bil23,nothing to descrice,new212,1
+Charles,2015,char,char123,  char76,Ireland,cork,"1221, Dublin, Ireland",2021-01-13,4,CEORI447,77444485,5,£,654,char23,2021-01-13,char67,setting the data,env23,2
+Mark,111,hhh,hhh,hh,UK,hh,"1221, London, UK",2021-01-13,1,MEORI4547,5445454,5,£,222,222,2021-01-20,mnkn,jhbh,uhgbuh,7
+,,,,,,,#N/A,,,#N/A,,,,,,,,,,
+,,,,,,,#N/A,,,,,,,,,,,,,
+,,,,,,,#N/A,,,,,,,,,,,,,
+,,,,,,,#N/A,,,,,,,,,,,,,
+,,,,,,,#N/A,,,,,,,,,,,,,

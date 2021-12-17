@@ -1,0 +1,3 @@
+customer_mobile,make_model,registration,location,collection_address,delivery_address,booking_date,lane,rate
+123,Toyota,TOY123,London,London,Dublin,2020-11-21,3,65
+123,Volkswagon,Voks123,London,Dublin,Cork,2020-11-22,2,65

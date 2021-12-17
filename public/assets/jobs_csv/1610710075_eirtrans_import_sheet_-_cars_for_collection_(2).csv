@@ -1,0 +1,2 @@
+Make,Model,VIN_Number,Car_Reg,Location,Collection_Address,Delivery_Address,Booking_Date,Lane,EORI,COMM_CODE,Weight,Currency,Value,Ship_IMO,ETA,Bill_of_Laden,Description,Invoice_Ref,Rate
+1111,MH11,MH123,MH23,UK,"2221, Midlands, Ireland","4311, Kerry, Ireland",2021-01-15,2,MHEORI998,8219870344,564654,£,45,MH546,2021-01-15,MH2323,NEW CAR,MH3423,20

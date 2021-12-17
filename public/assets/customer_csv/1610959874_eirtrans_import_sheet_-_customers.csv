@@ -1,0 +1,7 @@
+Customer_Name,TAN_Number,EORI_Number,Email,Customer_Address,City,County,Country,Post_Code,Customer_Contact,Notes
+Ford,FDTAN258,FDEORI148,info@ford.com,"2334, Wexford, Ireland",Wexford,Wexford,Ireland,21540,8744548112,This is testing note created for the customer Ford at the time of add customer.
+Maruti,MRTAN312,MREORI443,info@maruti.com,"2322, Midlands, Ireland",Midlands,Midlands,Ireland,32122,8764453250,This is testing note created for the customer Maruti at the time of add customer.
+Renault,RNTAN221,RNEORI567,info@renault.com,"2311, Limerick, Ireland",Limerick,Limerick,Ireland,23311,8562213490,This is testing note created for the customer Renault at the time of add customer.
+Mahindra,MHTAN878,MHEORI998,info@mahindra.com,"4311, Kerry, Ireland",Kerry,Kerry,Ireland,34211,8219870344,This is testing note created for the customer Mahindra at the time of add customer.
+Jaguar,JGTAN990,JGEORI444,info@jaguar.com,"1222, Cork, Ireland",Cork,Cork,Ireland,22155,8750002140,This is testing note created for the customer Jaguar at the time of add customer.
+Suzuki,SUTAN858,SUEORI858,info@suzuki.com,"4885, Donegal, Ireland",Donegal,Donegal,Ireland,88774,8699987594,HERE IS NOTHING FOR THIS CUSTOMER

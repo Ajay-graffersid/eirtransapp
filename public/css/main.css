@@ -1,0 +1,150 @@
+@charset "UTF-8";
+/* CSS Document */
+
+html{scroll-behavior:smooth}
+body{color:#6d6d6d !important; margin:0; padding:0; font-size: 14px!important; overflow-x:hidden;}
+
+
+h1, h2, h3, h4, h5, h6{border:none;outline:none}
+
+input,select,option,textarea{outline:none;resize:none}
+button{outline:none}
+img{border:none;margin:0;padding:0}
+a{text-decoration:none}
+a:hover{text-decoration:none!important}
+a:focus{text-decoration:none}
+ul{list-style-type: none; padding: 0; margin: 0;}
+.top-space{margin-top:70px}
+.full-width{width: 100%;}
+
+
+.cus-header{
+	background-color: #dfdfdf;
+    min-height: 350px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+.header-box{
+	text-align:  center;
+	color: #fff;
+}
+.header-first{
+	font-size: 35px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+}
+.header-second{
+	font-size: 46px;
+    font-weight: 100;
+    letter-spacing: 2px;
+}
+.cus-ticket-box{
+	display: inline-flex;
+	background-color: #fff;
+    border-radius: 20px;
+}
+.ticket-icon{
+	min-height: 70px;
+    background-color: #5e85b2;
+    align-items: center;
+    display: flex;
+    padding: 0 10px;
+    border-radius: 8px 0 0 8px;
+}
+.cus-ticket-box input{
+	min-height: 70px;
+    width: 210px;
+    border: none;
+    outline: none;
+    padding: 0 10px 0 20px;
+    font-weight: 700;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+.cus-ticket-box input::placeholder{
+	color: #999;
+}
+.cus-ticket-box button{
+	min-height: 70px;
+    background-color: #48b571;
+    color: #fff;
+    border-radius: 40px 8px 8px 40px;
+    outline: none !important;
+    padding: 0 12px;
+    border: solid #fff 4px;
+}
+.small-text{
+	margin: 0;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+.{
+	background-color: black;
+    color: #fff;
+    min-height: 70px;
+    display: inline-block;
+    text-align: center;
+}
+.reg-bpx{
+	background-color: #f3f3f3;
+    display: flex;
+    border: solid #d8d8d8 1px;
+    border-radius: 10px 0 0 10px;
+}
+.reg-bpx span{
+    display: inline-table;
+    padding-top: 12px;
+    color: #fff;
+}
+.reg-num{
+	font-size: 26px;
+    color: #333 !important;
+    font-weight: 700;
+    letter-spacing: 5px;
+    padding: 16px 20px 10px 20px !important;
+}
+.bmw-icon{
+	float: left;
+    margin: 0 10px 0 0;
+}
+.bmw-bold{
+	
+	font-size: 18px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: #333;
+}
+ul.color-list{}
+ul.color-list li{
+	display: inline-block;
+    color: #333;
+    margin: 0 17px 0 0;
+}
+ul.color-list li span{
+	font-weight: 600;
+}
+.bmw-text{
+    color: #333;
+}
+.bmw-text span{
+	font-weight: 600;
+}
+.car-img{
+	text-align: center;
+    font-size: 10px;
+    letter-spacing: .3px;
+}
+.car-img p{
+	margin: 0;
+}
+/* MOBILE CSS */
+
+@media screen and (max-width:992px){
+}
+
+
+@media screen and (max-width:768px){
+
+}

@@ -1,0 +1,10 @@
+Make,Model,VIN_Number,Car_Reg,Location,Collection_Address,Delivery_Address,Booking_Date,Lane,EORI,COMM_CODE,Weight,Currency,Value,Ship_IMO,ETA,Bill_of_Laden,Description,Invoice_Ref,Rate
+2006,FD26,FDVIN226,FD026,UK,"2211, London, UK","2334, Wexford, Ireland",2021-01-15,15,FDEORI148,8744548112,1150 KG,£,12800,FDIMO3341,2021-01-15,,Used Car,INV225,125
+2007,FD27,FDVIN227,FD027,UK,"2211, London, UK","2334, Wexford, Ireland",2021-01-15,2,FDEORI148,8744548112,1150 KG,£,12800,,,,,,125
+2009,FD29,FDVIN229,FD029,UK,"2211, London, UK","2334, Wexford, Ireland",2021-01-15,2,FDEORI148,8744548112,,£,,,,,,,124
+2004,MR24,MRVIN224,MR024,Ireland,"1556, Dublin, Ireland","2322, Midlands, Ireland",2021-01-15,3,MREORI443,8764453250,,£,,,,,,,50
+2007,MR27,MRVIN227,MR027,Ireland,"1556, Dublin, Ireland","2322, Midlands, Ireland",2021-01-15,3,MREORI443,8764453250,,£,10750,MRIMO2259,,,,,50
+2009,MR29,MRVIN229,MR029,Ireland,"1556, Dublin, Ireland","2322, Midlands, Ireland",2021-01-15,3,MREORI443,8764453250,1450 KG,£,,,,,,,60
+2004,RN24,RNVIN224,RN024,Ireland,"2221, Midlands, Ireland","2311, Limerick, Ireland",2021-01-15,15,RNEORI567,8562213490,,£,,,,,,,80
+2007,RN27,RNVIN227,RN027,Ireland,"2221, Midlands, Ireland","2311, Limerick, Ireland",2021-01-15,15,RNEORI567,8562213490,1644 KG,£,,,,,,,80
+2009,RN29,RNVIN229,RN029,Ireland,"2221, Midlands, Ireland","2311, Limerick, Ireland",2021-01-15,4,RNEORI567,8562213490,,£,,,,,,,80
