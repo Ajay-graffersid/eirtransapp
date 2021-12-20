@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDentsTable extends Migration
+class CreateCompletejobsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,21 @@ class CreateDentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dents', function (Blueprint $table) {
+        Schema::create('completejobs', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('driver_id')->nullable()->unsigned();
             $table->bigInteger('loadcontener_id')->nullable()->unsigned();
             $table->bigInteger('job_id')->nullable()->unsigned();
             $table->bigInteger('user_id')->nullable()->unsigned();
-            $table->string('type')->nullable();
-            $table->string('details')->nullable();
-            $table->string('image')->nullable();
+            // $table->string('date_time')->nullable();
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('note')->nullable();
+            $table->string('selecttool')->nullable();
+            $table->string('car_key')->nullable();
+            $table->string('signatureimage')->nullable();
             $table->string('image_path')->nullable();
-            $table->string('screenshot')->nullable();
-            $table->string('dent_status')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
 
             $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); 
@@ -41,6 +44,6 @@ class CreateDentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dents');
+        Schema::dropIfExists('completejobs');
     }
 }

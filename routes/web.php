@@ -15,6 +15,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\ExpenceTypeController;
+use App\Http\Controllers\TruckController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -138,6 +140,22 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('expence_type', ExpenceTypeController::class); 
     Route::get('expenseinctive/{id}', [ExpenceTypeController::class, 'expenseinctive'])->name('expenseinctive');
     Route::get('expensestatusupdate/{id}', [ExpenceTypeController::class, 'expensestatusupdate'])->name('expensestatusupdate');
+
+
+     //************************* TruckController */ 
+     Route::resource('truck', TruckController::class); 
+     Route::get('truckinctive/{id}', [TruckController::class, 'truckinctive'])->name('truckinctive');
+     Route::get('truckstatusupdate/{id}', [TruckController::class, 'truckstatusupdate'])->name('truckstatusupdate');
+    
+     
+//************************* Report */ 
+
+    //  Route::get('pocpoddetails/list', 'Adminctr@viewpocpoddetails')->name('pocpoddetails');
+    Route::get('pocpoddetails', [ReportController::class, 'viewpocpoddetails'])->name('pocpoddetails');
+    Route::get('poc/{id}', [ReportController::class, 'poc'])->name('poc');
+    Route::get('podlink/{id}', [ReportController::class, 'podlink'])->name('podlink');
+    // Route::get('poc/{id}', 'Adminctr@poc')->name('poc');
+    // Route::get('podlink/{id}', 'Adminctr@podlink')->name('podlink');
 
 });
 

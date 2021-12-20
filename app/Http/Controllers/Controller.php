@@ -31,6 +31,10 @@ class Controller extends BaseController
       return view('shipping.shipping_view',compact('result'));  
         
     }
+
+
+
+  
     
 
 }

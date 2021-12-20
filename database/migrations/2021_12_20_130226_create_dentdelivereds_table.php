@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDentsTable extends Migration
+class CreateDentdeliveredsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('dents', function (Blueprint $table) {
+        Schema::create('dentdelivereds', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('driver_id')->nullable()->unsigned();
             $table->bigInteger('loadcontener_id')->nullable()->unsigned();
@@ -23,7 +23,7 @@ class CreateDentsTable extends Migration
             $table->string('details')->nullable();
             $table->string('image')->nullable();
             $table->string('image_path')->nullable();
-            $table->string('screenshot')->nullable();
+            $table->string('screenshot')->nullable();          
             $table->string('dent_status')->nullable();
             $table->timestamps();
 
@@ -41,6 +41,6 @@ class CreateDentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dents');
+        Schema::dropIfExists('dentdelivereds');
     }
 }
