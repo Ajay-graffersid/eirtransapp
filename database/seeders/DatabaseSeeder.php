@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PermissionTableSeeder::class,
             CreateAdminUserSeeder::class,
-            LaneSeeder::class,
+              LaneSeeder::class,
+              DriverSeeder::class,
             // CompanySeeder::class,
            
         ]);

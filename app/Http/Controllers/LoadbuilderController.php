@@ -125,7 +125,8 @@ class LoadbuilderController extends Controller
       //$car_for_collection = DB::select('select * from cardetails where status!=?',[1]);    
 
               $jobs=Job::where('status',0)
-              ->where('collection_address',$collection_address)
+              ->where('location',$collection_address)
+              ->orwhere('collection_address',$collection_address)
               ->get();   
       
               $loadcontener = DB::select('select * from loadconteners where  status=?',[0]);

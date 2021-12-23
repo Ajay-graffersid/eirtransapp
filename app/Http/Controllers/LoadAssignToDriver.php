@@ -526,21 +526,7 @@ class LoadAssignToDriver extends Controller
                 {
 
                   $job=Job::where('id',$f)->first();
-                //  $userDataaa=DB::select("select *from jobs where id=?",[$f]); 
-                     
-               
-                // $customernames= DB::select('select *from jobcustomer where id=?',[$userDataaa[0]->customer]);
-                
-                //  $lanname= DB::select('select *from lane where id=?',[$userDataaa[0]->lan]);
-                  
-                  //  if(!empty($lanname))  
-                  //  {
-                  //      $ll= $lanname[0]->lane_number;
-                  //  }
-                  //  else
-                  //  {
-                  //    $ll= '';   
-                  //  }
+              
               
                    array_push($userData, [
            'customer'   => $job->user->name,

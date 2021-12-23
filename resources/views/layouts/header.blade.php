@@ -229,7 +229,7 @@ table#dataTable {
             @if($role == "Admin" || ($role =='User'))
 
             <li class="nav-item">
-              <a class="sidebar-link" href="{!! asset('pocpoddetails/list') !!}"><span class="icon-holder"><img src="{!! asset('assets/static/images/icon11.png') !!}" alt=""style="width: 84%;" > </span><span class="title">Cars Collected Report</span>
+              <a class="sidebar-link" href="{!! asset('pocpoddetails') !!}"><span class="icon-holder"><img src="{!! asset('assets/static/images/icon11.png') !!}" alt=""style="width: 84%;" > </span><span class="title">Cars Collected Report</span>
               </a>
             </li>
 

@@ -32,7 +32,7 @@
                   
          <!--<li></li><form action="{{ url('searchbycarbooking')}}" method="post"> Search By Booking Date: <input type="date" name="booking_date"> <input type="submit" value="Search"></form><-->
 
-         <li style="margin-top: 13px;"><form action="{{ url('mastersearch')}}" method="post"> <input type="search" name="type" class="" placeholder=" Search" aria-controls="dataTable" style="height:33px; border-radius:5px; border: 1px solid #000;"  > <input type="submit" value="Search"></form></li>
+         <li style="margin-top: 13px;"><form action="{{ url('mastersearch')}}" method="post"> @csrf <input type="search" name="reg" class="" placeholder=" Search" aria-controls="dataTable" style="height:33px; border-radius:5px; border: 1px solid #000;"  > <input type="submit" value="Search"></form></li>
 
         
           </ul>

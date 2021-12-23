@@ -10,6 +10,7 @@ use App\Models\Lane;
 use App\Models\User;
 use App\Models\Invoice;
 use DB;
+use Response;
 
 class ReportController extends Controller
 {
@@ -64,7 +65,7 @@ class ReportController extends Controller
       $jobdetails = DB::select('select * from completejobs where job_id=? and status=?',[$id,0]);
       $customerdetails = DB::select('select * from  users where id=?',[$podlink[0]->user_id]);
       
-      return view('poc',compact('podlink','driver','dentreport','deliveredjob','jobdetails','collected','customerdetails')); 
+      return view('report.poc',compact('podlink','driver','dentreport','deliveredjob','jobdetails','collected','customerdetails')); 
         
     }
 
@@ -82,9 +83,442 @@ class ReportController extends Controller
      $jobdetails = DB::select('select * from  singlejobdelivered where job_id=? and job_status=?',[$id,1]);
      $customerdetails = DB::select('select * from  users where id=?',[$podlink[0]->user_id]);
       
-   return view('podlink',compact('podlink','driver','dentreport','deliveredjob','jobdetails','collected','customerdetails'));     
+   return view('report.podlink',compact('podlink','driver','dentreport','deliveredjob','jobdetails','collected','customerdetails'));     
    
+    }
 
+
+
+    
+    public function viewcarreport_details($lane='')
+    {
+
+      // echo $lane;die;
+     $lanes =  DB::select("select *from lanes");
+     $customer_id = 0;
+     $bookingdate1 = 0;
+     $bookingdate2= 0;
+     $status= 0;
+ 
+     $user = auth()->user();
+    $v=$user->roles()->get(); 
+    // $v= $user->getRoleNames();
+     $role= $v[0]->name;  
+  
+    $login_id = $user->id;
+  
+     
+    
+     
+     if(!empty($lane)){
+ 
+       $login= session()->get('login');
+ 
+       if($role=='Customer'){
+      
+         $jobs =Job::where('bookingstatus','!=',0)
+                 ->where('lane_id',$lane)
+                 ->where('user_id',$login_id)->get();
+          
+         $customers = DB::select('select * from users  where id =?',[$login_id]);   
+ 
+       }else{
+      
+          $jobs =Job::where('bookingstatus','!=',0)
+      ->where('lane_id',$lane)
+      ->get();
+      
+       $customers = User::role('Customer')->orderBy('name', 'ASC')->get();  
+       } 
+            return view('report.job_report',compact('jobs','lanes','customers','customer_id','bookingdate1','bookingdate2','status'));
+    
+      }else{
+         
+      
+       if($role=='Customer'){      
+        $jobs =Job::where('bookingstatus','!=',0)
+        ->where('user_id',$login_id)->get();
+ 
+        $customers = User::role('Customer')->orderBy('name', 'ASC')->get();  
+          
+       }else{     
+     
+      $jobs =Job::where('bookingstatus','!=',0)->get();
+
+      $customers = User::role('Customer')->orderBy('name', 'ASC')->get();  
+       }
+          
+         return view('report.job_report',compact('jobs','lanes','customers','customer_id','bookingdate1','bookingdate2','status'));
+     }
+  
+    } 
+
+
+
+
+
+
+    public function searchbycarbookingg(Request $request)  {
+  
+      $bookingdate1= $request->input('booking_date1');
+      
+      $bookingdate2= $request->input('booking_date2');
+      
+      $customer_id= $request->input('customer_id');
+      $status= $request->input('status');
+     
+      $lanes =  DB::select("select *from lanes");
+
+      // $login= session()->get('login');
+
+      
+        $user = auth()->user();
+        $v=$user->roles()->get(); 
+        // $v= $user->getRoleNames();
+          $role= $v[0]->name;  
+      
+        // $login_id = $user->id;
+
+      if($role=='Customer'){
+      
+        $login_id = $user->id;
+      }
+      
+        
+      
+         
+        if(!empty($bookingdate1) && !empty($bookingdate2) && empty($customer_id) && empty($status))
+        {
+          $jobs =Job::where('bookingstatus','!=',0)->where('booking_date','>=',$bookingdate1)->where('booking_date','<=',$bookingdate2)->get();
+              //  $jobs = DB::select('select * from jobs where booking_date >= ? and booking_date <= ?',[$bookingdate1,$bookingdate2]);
+        }
+        else if(!empty($bookingdate1) && !empty($bookingdate2) && !empty($customer_id) && empty($status)){
+          $jobs =Job::where('bookingstatus','!=',0)->where('booking_date','>=',$bookingdate1)->where('booking_date','<=',$bookingdate2)->where('user_id',$customer_id)->get();
+         
+            
+        }
+        else if(!empty($bookingdate1) && !empty($bookingdate2) && empty($customer_id) && !empty($status)){
+          $jobs =Job::where('bookingstatus',$status)->where('booking_date','>=',$bookingdate1)->where('booking_date','<=',$bookingdate2)->get();
+         
+            
+        }
+
+        else if(empty($bookingdate1) && empty($bookingdate2) && !empty($customer_id) && !empty($status)){          
+        
+          $jobs =Job::where('bookingstatus',$status)->where('user_id',$customer_id)->get(); 
+        }
+
+        else if(empty($bookingdate1) && empty($bookingdate2) && !empty($customer_id) && empty($status)){          
+       
+          $jobs =Job::where('bookingstatus','!=',0)->where('user_id',$customer_id)->get();   
+        }
+        else if(empty($bookingdate1) && empty($bookingdate2) && empty($customer_id) && !empty($status)){
+          
+        
+          $jobs =Job::where('bookingstatus',$status)->get();   
+            
+        }
+       
+
+
+        else
+        {
+          $jobs =Job::where('bookingstatus',4)->get();  
+          
+        }
+        
+        $customers = User::role('Customer')->orderBy('name', 'ASC')->get();  
+       
+       return view('report.job_report',compact('jobs','customers','lanes','customer_id','bookingdate1','bookingdate2','status')); 
+        
         
     }
+
+
+
+      public function jobs_report_export(Request $request)
+      {
+      
+      $customer_id=$request->customer_id;
+      $status=$request->status;
+      $booking_date1=$request->booking_date1;
+      $booking_date2=$request->booking_date2;
+        
+
+        // echo $request->customer_id;die;
+           
+        //  if($customer_id == 00){
+          
+        //   $customer_id ='';   
+        //  }
+            
+          
+      // $headers = [
+      //       'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0', 
+      //       'Content-type' => 'text/csv', 
+      //       'Content-Disposition' => 'attachment; filename=jobs_'.date('Ymd').'.csv', 
+      //       'Expires' => '0', 
+      //       'Pragma' => 'public'
+      //   ];
+
+      //   $headers = array(
+      //     "Content-type"        => "text/csv",
+      //     "Content-Disposition" => "attachment; filename=$fileName",
+      //     "Pragma"              => "no-cache",
+      //     "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+      //     "Expires"             => "0"
+      // );
+        
+        
+        
+        ////new////
+        
+             
+               
+              
+        
+       if(empty($customer_id) && empty($status) && !empty($booking_date1) && !empty($booking_date2))
+        {              
+               $list  = Job::join('users','jobs.user_id','=','users.id')
+                        ->join('lanes','jobs.lane_id','=','lanes.id')
+                        ->select('jobs.job_number','users.name','jobs.make_model','jobs.reg','lanes.lane_number','jobs.rate','jobs.rate','jobs.collection_address','jobs.delivery_address','jobs.booking_date','jobs.bookingstatus')
+                        ->where('jobs.booking_date','>=',$booking_date1)
+                        ->where('jobs.booking_date','<=',$booking_date2)
+                        // ->where('jobs.bookingstatus','!=',0)
+                        ->get();
+                        // ->toArray();
+
+              // $list=Job::where('booking_date','>=',$booking_date1)->where('booking_date','<=',$booking_date2)->where('bookingstatus','!=',0)->get()->toArray();
+                       
+              
+        }
+        else if(!empty($booking_date1) && !empty($booking_date2) && !empty($customer_id) && !empty($status)){
+          
+          // $list=Job::where('booking_date','>=',$booking_date1)->where('booking_date','<=',$booking_date2)->where('bookingstatus','!=',0)->where('user_id',$customer_id)->get()->toArray();
+               $list  = Job::join('users','jobs.user_id','=','users.id')
+                         ->join('lanes','jobs.lane_id','=','lanes.id')
+                         ->select('jobs.job_number','users.name','jobs.make_model','jobs.reg','lanes.lane_number','jobs.rate','jobs.rate','jobs.collection_address','jobs.delivery_address','jobs.booking_date','jobs.bookingstatus')
+                        ->where('jobs.booking_date','>=',$booking_date1)
+                        ->where('jobs.booking_date','<=',$booking_date2)
+                        ->where('jobs.bookingstatus','=',$status)
+                        ->where('jobs.customer','=',$customer_id)
+                        ->get();
+                        // ->toArray();
+             
+             
+            
+        }
+        else if(empty($booking_date1) && empty($booking_date2) && !empty($customer_id) && empty($status)){
+          
+          // $list=Job::where('bookingstatus','!=',0)->where('user_id',$customer_id)->get()->toArray();
+            
+            $list  =  Job::join('users','jobs.user_id','=','users.id')
+                      ->join('lanes','jobs.lane_id','=','lanes.id')
+                      ->select('jobs.job_number','users.name','jobs.make_model','jobs.reg','lanes.lane_number','jobs.rate','jobs.rate','jobs.collection_address','jobs.delivery_address','jobs.booking_date','jobs.bookingstatus')
+                        // ->where('cardetails.bookingstatus','!=',0)
+                        ->where('jobs.customer',$customer_id)
+                        ->get();
+                        // ->toArray();
+          
+             
+              
+              
+        
+        }
+
+        else if(empty($booking_date1) && empty($booking_date2) && empty($customer_id) && !empty($status)){
+          
+          //  echo 'status if';die;
+        
+          // $list=Job::where('bookingstatus',$status)->get()->toArray();
+          $list  = Job::join('users','jobs.user_id','=','users.id')
+                   ->join('lanes','jobs.lane_id','=','lanes.id')
+                   ->select('jobs.job_number','users.name','jobs.make_model','jobs.reg','lanes.lane_number','jobs.rate','jobs.rate','jobs.collection_address','jobs.delivery_address','jobs.booking_date','jobs.bookingstatus')
+                       ->where('jobs.bookingstatus',$status)
+                      ->get();
+                      // ->toArray();
+        
+                      
+            
+      
+      }
+        else
+        {
+            //  $list=Job::where('bookingstatus','!=',0)->get()->toArray();
+             $list  =  Job::join('users','jobs.user_id','=','users.id')
+                      ->join('lanes','jobs.lane_id','=','lanes.id')
+                      ->select('jobs.job_number','users.name','jobs.make_model','jobs.reg','lanes.lane_number','jobs.rate','jobs.rate','jobs.collection_address','jobs.delivery_address','jobs.booking_date','jobs.bookingstatus')
+                        // ->where('cardetails.bookingstatus','=',4)
+                        ->get();
+                        // ->toArray();
+       
+         
+       
+        }
+        
+              
+        
+        //endnew///
+        
+              
+        $fileName = 'tasks.csv';
+        
+        if(count($list)>0)
+        {
+
+          $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('job_number', 'name', 'make_model', 'reg', 'lane_number','rate','collection_address','delivery_address','booking_date','bookingstatus');
+
+        $callback = function() use($list, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($list as $task) {
+                $row['job_number']  = $task->job_number;
+                $row['name']  = $task->name;
+                $row['make_model']    = $task->make_model;
+                $row['reg']  = $task->reg;
+                $row['lane_number']  = $task->lane_number;
+                $row['rate']  = $task->rate;
+                $row['collection_address']  = $task->collection_address;
+                $row['delivery_address']  = $task->delivery_address;
+                $row['booking_date']  = $task->booking_date;
+                $row['bookingstatus']  = $task->bookingstatus;
+
+                fputcsv($file, array($row['job_number'], $row['name'], $row['make_model'], $row['reg'], $row['lane_number'],$row['rate'],$row['collection_address'],$row['delivery_address'],$row['booking_date'],$row['bookingstatus']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+
+
+
+
+
+
+      //   # add headers for each column in the CSV download
+      //  $ee= array_unshift($list, array_keys($list[0]));
+        
+      //   $callback = function() use ($list)
+      //   {
+      //       $FH = fopen('php://output', 'w');
+        
+      //         foreach($list as $key => $row){
+              
+      //           if($row->bookingstatus=='4'){
+      //             $row->bookingstatus='Job Complete';
+      //         }
+
+      //         // $questions[$key]['answers'] = $answers_model->get_answers_by_question_id($question['question_id']);
+              
+      //           fputcsv($FH, $row);
+      //       }
+      //       fclose($FH);
+      //   };
+
+       
+        
+      //   return Response::stream($callback, 200, $headers);
+        }
+        else{
+            
+              $msg="Data Not Found!";
+         $request->session()->flash('msg', $msg);
+          return redirect()->route('job_report');
+            
+         
+        }
+        
+    }
+
+
+
+
+    public function viewMorningCheckReport()
+    {
+     
+      $todaymorningcheck = DB::select('select * from todaymorningchecks');
+      return view('report.morningcheck',['todaymorningcheck'=>$todaymorningcheck]);
+    
+    }
+    
+
+
+    public function searchbarmorningcheck(Request $request)  {
+  
+      $datatimee= $request->input('datatime');
+      
+     // echo($datatimee);
+     // die;
+         
+        if(!empty($datatimee))
+        {
+               $drexpence = DB::select('select * from expences where datatime=?',[$datatimee]);
+        }
+        else
+        {
+             $drexpence = DB::select('select * from expences');
+        }
+      
+     return view('report.drexpence',['drexpences'=>$drexpence]);
+        
+        
+        
+        
+    }
+
+
+
+    public function searchbarexpenses(Request $request)  {
+  
+      $datatimee= $request->input('datatime');
+      
+    //   echo($datatimee);
+    //   die;
+         
+        if(!empty($datatimee))
+        {
+               $drexpence = DB::select('select * from expences where datatime=?',[$datatimee]);
+        }
+        else
+        {
+             $drexpence = DB::select('select * from expences');
+        }
+      
+     return view('report.drexpence',['drexpences'=>$drexpence]);
+        
+        
+        
+        
+    }
+    
+
+
+
+    public function itemmorning(Request $request,$id)
+   
+   
+   {
+    
+  
+      $item = DB::select('select * from morningtruckaccepts where driver_id=?',[$id]);
+     return view('itemtable',['items'=>$item]);
+   
+    }
+  
+    
+    
+    
+
+    
+    
 }

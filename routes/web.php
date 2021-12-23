@@ -154,8 +154,31 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('pocpoddetails', [ReportController::class, 'viewpocpoddetails'])->name('pocpoddetails');
     Route::get('poc/{id}', [ReportController::class, 'poc'])->name('poc');
     Route::get('podlink/{id}', [ReportController::class, 'podlink'])->name('podlink');
-    // Route::get('poc/{id}', 'Adminctr@poc')->name('poc');
-    // Route::get('podlink/{id}', 'Adminctr@podlink')->name('podlink');
+
+//  ----  Report  job-----
+    Route::get('job_report/list', [ReportController::class, 'viewcarreport_details'])->name('job_report');
+    Route::get('jobsearchbylane/{lane?}', [ReportController::class, 'viewcarreport_details'])->name('jobsearchbylane');
+    Route::post('searchbycarbooking', [ReportController::class, 'searchbycarbookingg'])->name('searchbycarbookingg');
+    Route::post('jobs_report_export', [ReportController::class, 'jobs_report_export'])->name('jobs_report_export');
+
+    //--- viewMorningCheckReport-----
+
+  
+    Route::get('viewMorningCheckReport', [ReportController::class, 'viewMorningCheckReport'])->name('viewMorningCheckReport');
+    Route::post('searchbarmorningcheck', [ReportController::class, 'searchbarmorningcheck'])->name('searchbarmorningcheck');  
+    Route::post('searchbarexpenses', [ReportController::class, 'searchbarexpenses'])->name('searchbarexpenses');  
+    Route::get('iitemlistt/{id}', [ReportController::class, 'itemmorning'])->name('iitemlistt');  
+   
+    
+
+  
+
+
+//************************* mastersearch */    
+
+    Route::post('mastersearch', [Controller::class, 'mastersearch'])->name('mastersearch');
+    Route::post('getinvoice', [Controller::class, 'getinvoice'])->name('getinvoice');
+  
 
 });
 
