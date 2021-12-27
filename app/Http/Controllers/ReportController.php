@@ -511,9 +511,123 @@ class ReportController extends Controller
     
   
       $item = DB::select('select * from morningtruckaccepts where driver_id=?',[$id]);
-     return view('itemtable',['items'=>$item]);
+     return view('report.itemtable',['items'=>$item]);
    
     }
+
+
+
+
+
+    public function jobchecklist()  {
+      
+       $loaddetails = Loadcontener::all();
+
+      
+                     
+       //$driver = DB::select('select * from driver where id=?',[$loaddetails[0]->driver_id]);
+      
+  
+  
+       return view('report.jobchecklist',['jobs'=>$loaddetails]);
+     
+      }
+
+
+
+
+
+
+
+
+        
+   public function view_load_details($id='')
+   {
+       
+      $loadcontener = DB::table('loadconteners')->where('id',$id)->first();
+      
+      $data = [];
+      if(!empty($loadcontener->job_id)){
+          $data = array(
+                 'id'=>$loadcontener->id,
+                 'loadnumber'=>$loadcontener->loadnumber,
+                 'car_collection_data'=>$this->getCarCollectionData1($loadcontener->job_id),
+                 'load_title'=>$loadcontener->load_title,
+              );
+      }else{
+          $data = array(
+                 'id'=>$loadcontener->id,
+                 'loadnumber'=>$loadcontener->loadnumber,
+                 'car_collection_data'=>$this->getCarCollectionData1($loadcontener->car_delivery_id),
+                 'load_title'=>$loadcontener->load_title,
+             );
+      }
+      $jobs= $this->getCarCollectionData1($loadcontener->job_id);
+      $shiping = DB::table('carsfordelivery')->where('loadcontener_id',$id)->get();
+      //echo "<pre>";
+      //print_r($shiping);die;
+     
+       return view('report.view_load_details',compact('jobs','shiping'));
+    
+   }
+
+
+   public function getCarCollectionData1($car_id){
+    $ids = explode(',',$car_id);
+  
+    
+    foreach($ids as $job_id){
+      
+        $jobs= Job::where('id',$job_id)->get();
+       
+        
+    }
+    return $jobs;
+}
+
+
+
+
+public function view_job_report($id='') {
+  $collecteddetails = DB::select('select * from collecteds where job_id=?',[$id]);
+  $jobs = DB::select('select * from dents where job_id=?  and 	dent_status=?',[$id,0]);
+   $deliverydentimage = DB::select('select * from dentdelivereds where job_id=? and dent_status=?',[$id,0]);
+
+  $dent1 = DB::select('select * from dents where job_id=?  and dent_status=?',[$id,1]);
+  $deliverydentimage1 = DB::select('select * from dentdelivereds where job_id=? and dent_status=?',[$id,1]);
+
+  $jobdetails = DB::select('select * from completejobs where job_id=? and status=?',[$id,0]);
+  $jobdetails1 = DB::select('select * from completejobs where job_id=? and status=?',[$id,1]);
+  $driver = DB::select('select * from drivers where id=?',[$jobdetails[0]->driver_id]);
+
+  $loaddetails = DB::select('select * from loadconteners where id=?',[$jobdetails[0]->job_id]);
+
+ 
+  $jobdelivered = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,0]);
+  $first_delivered = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,0]);
+  $jobdelivered1 = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,1]);
+  
+  
+  $first_delivered_details = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,1]);
+ //  $seconddetails_delivered = DB::select('select * from singlejobdelivered where job_id=?  and job_status=?',[$id,1]);
+  
+  $current_job_details = DB::select('select * from jobs where id=?',[$id]);
+  $loadsassign = DB::select('select * from loadsassign where driverid=?',[$collecteddetails[0]->driver_id]);
+   if(!empty($collecteddetails[1]->driver_id) && !empty($jobdetails[1]->job_id)){
+       $loaddetails1 = DB::select('select * from loadconteners where id=?',[$jobdetails[1]->job_id]);
+            $loadsassign1 = DB::select('select * from loadassigns where driverid=?',[$collecteddetails[1]->driverid]);
+                 return view('view_job_report',compact('current_job_details','driver','loaddetails','loaddetails1','jobs','dent1','jobdetails','jobdetails1','collecteddetails','jobdelivered1','jobdelivered','first_delivered','loadsassign','loadsassign1','deliverydentimage','deliverydentimage1','first_delivered_details'));
+
+
+   }else{
+    return view('view_job_report',compact('current_job_details','driver','loaddetails','jobs','dent1','jobdetails','jobdetails1','collecteddetails','jobdelivered','jobdelivered1','first_delivered','loadsassign','deliverydentimage','deliverydentimage1','first_delivered_details'));
+
+   }
+   
+
+  }
+
+   
   
     
     

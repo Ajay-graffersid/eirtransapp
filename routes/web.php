@@ -167,7 +167,16 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('viewMorningCheckReport', [ReportController::class, 'viewMorningCheckReport'])->name('viewMorningCheckReport');
     Route::post('searchbarmorningcheck', [ReportController::class, 'searchbarmorningcheck'])->name('searchbarmorningcheck');  
     Route::post('searchbarexpenses', [ReportController::class, 'searchbarexpenses'])->name('searchbarexpenses');  
-    Route::get('iitemlistt/{id}', [ReportController::class, 'itemmorning'])->name('iitemlistt');  
+    Route::get('iitemlistt/{id}', [ReportController::class, 'itemmorning'])->name('iitemlistt'); 
+   
+    
+    //--- jobchecklist-----
+
+    Route::get('jobchecklist', [ReportController::class, 'jobchecklist'])->name('jobchecklist');
+    Route::get('view_load_details/{id}', [ReportController::class, 'view_load_details'])->name('view_load_details');
+    Route::get('view_job_report/list/{id}', [ReportController::class, 'view_job_report'])->name('view_job_report');
+    
+    
    
     
 

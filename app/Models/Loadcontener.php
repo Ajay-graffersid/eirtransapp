@@ -13,7 +13,14 @@ class Loadcontener extends Model
 
     public function driver(Type $var = null)
     {
-        return $this->hasOne(driver::class);
+     
+        return $this->belongsTo(driver::class);
+    }
+
+    public function Jobdelivered(Type $var = null)
+    {
+     
+        return $this->belongsTo(Jobdelivered::class);
     }
   
 }
