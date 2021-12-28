@@ -9,6 +9,7 @@ use App\Models\Job;
 use App\Models\Lane;
 use App\Models\User;
 use App\Models\Invoice;
+use App\Models\Expence;
 use DB;
 use Response;
 
@@ -584,48 +585,98 @@ class ReportController extends Controller
     }
     return $jobs;
 }
-
-
-
-
-public function view_job_report($id='') {
-  $collecteddetails = DB::select('select * from collecteds where job_id=?',[$id]);
-  $jobs = DB::select('select * from dents where job_id=?  and 	dent_status=?',[$id,0]);
-   $deliverydentimage = DB::select('select * from dentdelivereds where job_id=? and dent_status=?',[$id,0]);
-
-  $dent1 = DB::select('select * from dents where job_id=?  and dent_status=?',[$id,1]);
-  $deliverydentimage1 = DB::select('select * from dentdelivereds where job_id=? and dent_status=?',[$id,1]);
-
-  $jobdetails = DB::select('select * from completejobs where job_id=? and status=?',[$id,0]);
-  $jobdetails1 = DB::select('select * from completejobs where job_id=? and status=?',[$id,1]);
-  $driver = DB::select('select * from drivers where id=?',[$jobdetails[0]->driver_id]);
-
-  $loaddetails = DB::select('select * from loadconteners where id=?',[$jobdetails[0]->job_id]);
-
  
-  $jobdelivered = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,0]);
-  $first_delivered = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,0]);
-  $jobdelivered1 = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,1]);
-  
-  
-  $first_delivered_details = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,1]);
- //  $seconddetails_delivered = DB::select('select * from singlejobdelivered where job_id=?  and job_status=?',[$id,1]);
-  
-  $current_job_details = DB::select('select * from jobs where id=?',[$id]);
-  $loadsassign = DB::select('select * from loadsassign where driverid=?',[$collecteddetails[0]->driver_id]);
-   if(!empty($collecteddetails[1]->driver_id) && !empty($jobdetails[1]->job_id)){
-       $loaddetails1 = DB::select('select * from loadconteners where id=?',[$jobdetails[1]->job_id]);
-            $loadsassign1 = DB::select('select * from loadassigns where driverid=?',[$collecteddetails[1]->driverid]);
-                 return view('view_job_report',compact('current_job_details','driver','loaddetails','loaddetails1','jobs','dent1','jobdetails','jobdetails1','collecteddetails','jobdelivered1','jobdelivered','first_delivered','loadsassign','loadsassign1','deliverydentimage','deliverydentimage1','first_delivered_details'));
 
 
-   }else{
-    return view('view_job_report',compact('current_job_details','driver','loaddetails','jobs','dent1','jobdetails','jobdetails1','collecteddetails','jobdelivered','jobdelivered1','first_delivered','loadsassign','deliverydentimage','deliverydentimage1','first_delivered_details'));
 
-   }
+
+
+  public function view_job_report($id='') {
+    $collecteddetails = DB::select('select * from collecteds where job_id=?',[$id]);
+
+    $jobs = DB::select('select * from dents where job_id=?  and 	dent_status=?',[$id,0]);
+    $dent1 = DB::select('select * from dents where job_id=?  and dent_status=?',[$id,1]);
+
+     $deliverydentimage = DB::select('select * from dentdelivereds where job_id=? and dent_status=?',[$id,0]);
+     $deliverydentimage1 = DB::select('select * from dentdelivereds where car_collection_id=? and dent_status=?',[$id,1]);   
    
+  
+    $jobdetails = DB::select('select * from completejobs where job_id=? and status=?',[$id,0]);
+    $jobdetails1 = DB::select('select * from completejobs where job_id=? and status=?',[$id,1]);
 
-  }
+    $driver = DB::select('select * from driver where id=?',[$jobdetails[0]->driver_id]);
+ 
+    $loaddetails = DB::select('select * from loadconteners where id=?',[$jobdetails[0]->loadcontener_id]);
+  
+   
+    $jobdelivered = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,0]);
+    $first_delivered = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,0]);
+    $jobdelivered1 = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,1]);
+    
+    
+    $first_delivered_details = DB::select('select * from singlejobdelivereds where job_id=?  and job_status=?',[$id,1]);
+   //  $seconddetails_delivered = DB::select('select * from singlejobdelivered where job_id=?  and job_status=?',[$id,1]);
+    
+    $current_job_details = DB::select('select * from jobs where id=?',[$id]);
+    $loadsassign = DB::select('select * from loadassigns where driver_id=?',[$collecteddetails[0]->driver_id]);
+     if(!empty($collecteddetails[1]->driver_id) && !empty($jobdetails[1]->job_id)){
+         $loaddetails1 = DB::select('select * from loadconteners where id=?',[$jobdetails[1]->job_id]);
+              $loadsassign1 = DB::select('select * from loadassigns where driver_id=?',[$collecteddetails[1]->driver_id]);
+                   return view('view_job_report',compact('current_job_details','driver','loaddetails','loaddetails1','jobs','dent1','jobdetails','jobdetails1','collecteddetails','jobdelivered1','jobdelivered','first_delivered','loadsassign','loadsassign1','deliverydentimage','deliverydentimage1','first_delivered_details'));
+
+
+     }else{
+      return view('view_job_report',compact('current_job_details','driver','loaddetails','jobs','dent1','jobdetails','jobdetails1','collecteddetails','jobdelivered','jobdelivered1','first_delivered','loadsassign','deliverydentimage','deliverydentimage1','first_delivered_details'));
+
+     }
+     
+  
+    }
+
+
+
+    public function viewdrexpence()   {
+
+      // $drexpence = DB::select('select * from expences INNER JOIN driver ON expence.driver_id=driver.id');
+      $drexpence=Expence::all();
+
+      // echo '<pre>';print_r($drexpence[0]->driver->name);die;      
+     // echo($drexpence);
+      //dia;
+       return view('report.drexpence',['drexpences'=>$drexpence]);
+     }
+
+
+
+     public function driver_report_export()
+     {
+         
+       
+         $headers = [
+             'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0', 
+             'Content-type' => 'text/csv', 
+             'Content-Disposition' => 'attachment; filename=driver_expence'.date('Ymd').'.csv', 
+             'Expires' => '0', 
+             'Pragma' => 'public'
+         ];
+         
+         $list = Expence::all()->toArray();
+         # add headers for each column in the CSV download
+         
+         array_unshift($list, array_keys($list[0]));
+         
+         $callback = function() use ($list)
+         {
+             $FH = fopen('php://output', 'w');
+             foreach ($list as $row) {
+                 fputcsv($FH, $row);
+             }
+             fclose($FH);
+         };
+         return Response::stream($callback, 200, $headers);
+     }
+     
+     
 
    
   

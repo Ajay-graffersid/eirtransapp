@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Expence extends Model
 {
     use HasFactory;
+
+
+    public function driver(Type $var = null)
+    {
+        return $this->belongsTo(Driver::class);
+    }
 }

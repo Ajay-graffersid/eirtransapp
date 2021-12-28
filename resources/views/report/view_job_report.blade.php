@@ -49,10 +49,10 @@
                        <tr>
                             <td>Customer Name</td>
                           <td><?php
-                            $name = DB::table('jobcustomer')->where('id',$current_job_details->customer)->first();
+                            $name = DB::table('users')->where('id',$current_job_details->user_id)->first();
                              if(!empty($name))
                              {
-                            echo $name->customer_name;
+                            echo $name->name;
                              }
                           ?></td>
                             
@@ -85,7 +85,7 @@
                           <tr>
                             <td>Lane</td>
                             <td><?php
-                            $name = DB::table('lane')->where('id',$current_job_details->lan)->first();
+                            $name = DB::table('lanes')->where('id',$current_job_details->lane_id)->first();
                                  if(!empty($name))
                              {
                                 echo $name->lane_number;
@@ -169,7 +169,7 @@
                             @foreach ($loadsassign as $loadsassign)
                             @endforeach
                             <td><?php
-                            $name = DB::table('driver')->where('id',$loadsassign->driverid)->first();
+                            $name = DB::table('drivers')->where('id',$loadsassign->driver_id)->first();
                              if(!empty($name))
                              {
                             echo $name->name;
@@ -196,9 +196,9 @@
                             @else
                               <td class="de_de">N/A</td>
                             @endif
-                              @if(!empty($current_job_details->lan))
+                              @if(!empty($current_job_details->lane_id))
                               <td><?php
-                            $name = DB::table('lane')->where('id',$current_job_details->lan)->first();
+                            $name = DB::table('lanes')->where('id',$current_job_details->lane_id)->first();
                            if(!empty($name))
                              {
                                 echo $name->lane_number;
@@ -210,7 +210,7 @@
                             @endif
                             <td class="de_de">By</td>
                              <td><?php
-                            $name = DB::table('driver')->where('id',$collecteddetails->driverid)->first();
+                            $name = DB::table('drivers')->where('id',$collecteddetails->driver_id)->first();
                              if(!empty($name))
                              {
                             echo $name->name;
@@ -227,10 +227,10 @@
                             @if(!empty($jobdelivered->date_time))
 
                              <td><?php
-                            $name = DB::table('jobcustomer')->where('id',$current_job_details->customer)->first();
+                            $name = DB::table('users')->where('id',$current_job_details->user_id)->first();
                              if(!empty($name))
                              {
-                            echo $name->customer_name;
+                            echo $name->name;
                              }
                           ?></td>
                           
@@ -242,7 +242,7 @@
                             
                             <td class="de_de">By</td>
                              <td><?php
-                            $name = DB::table('driver')->where('id',$jobdelivered->driver_id)->first();
+                            $name = DB::table('drivers')->where('id',$jobdelivered->driver_id)->first();
                              if(!empty($name))
                              {
                             echo $name->name;
@@ -260,10 +260,10 @@
                             @if(!empty($first_delivered_details->date_time))
 
                              <td><?php
-                            $name = DB::table('jobcustomer')->where('id',$current_job_details->customer)->first();
+                            $name = DB::table('users')->where('id',$current_job_details->user_id)->first();
                              if(!empty($name))
                              {
-                            echo $name->customer_name;
+                            echo $name->name;
                              }
                           ?></td>
                           
@@ -275,7 +275,7 @@
                             
                             <td class="de_de">By</td>
                              <td><?php
-                            $name = DB::table('driver')->where('id',$first_delivered_details->driver_id)->first();
+                            $name = DB::table('drivers')->where('id',$first_delivered_details->driver_id)->first();
                              if(!empty($name))
                              {
                             echo $name->name;

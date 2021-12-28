@@ -175,6 +175,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('jobchecklist', [ReportController::class, 'jobchecklist'])->name('jobchecklist');
     Route::get('view_load_details/{id}', [ReportController::class, 'view_load_details'])->name('view_load_details');
     Route::get('view_job_report/list/{id}', [ReportController::class, 'view_job_report'])->name('view_job_report');
+
+    //--- drexpence-----
+    Route::get('drexpence/list', [ReportController::class, 'viewdrexpence'])->name('drexpence');
+    Route::get('driver_report_export', [ReportController::class, 'driver_report_export'])->name('driver_report_export');
+
+
+    
     
     
    
