@@ -50,10 +50,7 @@ class LoadcontenerController extends Controller
 		
         
 		$load->job_id = $request->job_id != '' ? $request->job_id : "";
-		// $load->car_delivery_id = $request->car_delivery_id != '' ? $request->car_delivery_id : "";
-		// $load->driver_id = $request->driver_id != '' ? $request->driver_id : "";
-		// $load->status = 0;
-		// $load->type = $request->type != '' ? $request->type : "";
+		
 
 		if ($load->save()) {
 			$msg="Load contaniner created successfully..";

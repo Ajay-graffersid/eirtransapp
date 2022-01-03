@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CreateAdminUserSeeder::class,
               LaneSeeder::class,
               DriverSeeder::class,
+              MailSeeder::class,
             // CompanySeeder::class,
            
         ]);

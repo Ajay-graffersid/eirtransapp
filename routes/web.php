@@ -17,6 +17,7 @@ use App\Http\Controllers\ToolController;
 use App\Http\Controllers\ExpenceTypeController;
 use App\Http\Controllers\TruckController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,7 @@ Route::group(['middleware' => ['auth']], function() {
    // *********************************
     
    Route::get('loadassigntodriver/{id?}', [LoadAssignToDriver::class, 'index'])->name('loadassigntodriver');
+  
    Route::post('loadassign', [LoadAssignToDriver::class, 'loadassign'])->name('loadassign');
    Route::get('removeassignload/{id}/{driverid}/{date}', [LoadAssignToDriver::class, 'removeload']);
    Route::post('viewassignload', [LoadAssignToDriver::class, 'viewassignload']);
@@ -178,13 +180,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     //--- drexpence-----
     Route::get('drexpence/list', [ReportController::class, 'viewdrexpence'])->name('drexpence');
-    Route::get('driver_report_export', [ReportController::class, 'driver_report_export'])->name('driver_report_export');
-
-
-    
-    
-    
-   
+    Route::get('driver_report_export', [ReportController::class, 'driver_report_export'])->name('driver_report_export'); 
     
 
   
@@ -195,6 +191,17 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('mastersearch', [Controller::class, 'mastersearch'])->name('mastersearch');
     Route::post('getinvoice', [Controller::class, 'getinvoice'])->name('getinvoice');
   
+/************************* notification_details */ 
 
+     Route::get('notification_details/list', [Controller::class, 'viewnotification_details'])->name('notification_details');
+     Route::get('addshipinng/{id}/{idd}', [Controller::class, 'addshippingadd'])->name('addshippingadd');
+     Route::post('savesipingd_noti', [Controller::class, 'savesipingd_noti'])->name('savesipingd_noti');
+
+   /************************* dashboard */ 
+   Route::get('dashboard', [Dashboard::class, 'dah'])->name('dashh');
+
+//    Route::get('viewMorningCheckReport','Adminctr@viewMorningCheckReport')->name('viewMorningCheckReport');
+    
+    
 });
 

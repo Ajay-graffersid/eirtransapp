@@ -694,19 +694,10 @@ class LoadAssignToDriver extends Controller
         foreach($ids as $job_id){
             $cheklan= DB::select("select *from jobs where id=?",[$job_id]);
             if($cheklan[0]->lane_id==null){
-                // $jobs[] = DB::table('cardetails')
-                //       ->select('cardetails.*','jobcustomer.customer_name','jobcustomer.additional_comment')
-                //       ->join('jobcustomer','cardetails.customer','=','jobcustomer.id')
-                //       ->where('cardetails.id',$job_id)
-                //       ->first();
+                
                 $jobs[]=Job::where('id',$job_id)->first();
             }else{
-                // $jobs[] = DB::table('cardetails')
-                //       ->select('cardetails.*','jobcustomer.customer_name','lane.lane_number','jobcustomer.additional_comment')
-                //       ->join('jobcustomer','cardetails.customer','=','jobcustomer.id')
-                //       ->join('lane','cardetails.lan','=','lane.id')
-                //       ->where('cardetails.id',$job_id)
-                //       ->first();
+               
                       $jobs[]=Job::where('id',$job_id)->first();
             }
             

@@ -5,6 +5,7 @@
  @endsection
  
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
 
 <main class="main-content bgc-grey-100">
   <div id="mainContent">
@@ -27,6 +28,24 @@
               </ul>
             </div>
           @endif
+<!-- ************************Sweet alert ***********************************************           -->
+
+
+
+@if(Session::has('msg'))
+     <script type="text/javascript">
+        swal({
+            title:'Success!',
+            text:"{{Session::get('msg')}}",
+            timer:5000,
+            type:'success'
+        }).then((value) => {
+          //location.reload();
+        }).catch(swal.noop);
+    </script>
+    @endif
+<!-- ************************sweet alert closet****************************************************************     -->
+
           <div class="bgc-white bd bdrs-3 p-20 mB-20"> 
             <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
               <thead>
@@ -73,7 +92,9 @@
     </div>
   </div>
 </main>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css"> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
   function drop(ev,ldid) {

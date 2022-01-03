@@ -218,86 +218,84 @@ input[type="button"] {
       <h4>Load </h4>
 
       <div id="accordion" >
-     
- 
-         @foreach($loads as $loadc)
+      @foreach($loads as $loadc)
+    
+           
+    <h1 onclick="showhide(this)"> <span draggable="true" ondragstart="drag(event)" id="{{$loadc->id}}"  > <b>{{$loadc->loadnumber}} : {{$loadc->load_title}}</b></span></h1>
          
-   <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn " data-toggle="collapse" data-target="#{{$loadc->loadnumber}}" aria-expanded="true" aria-controls="collapseOne" >
-        <span draggable="true" ondragstart="drag(event)" id="{{$loadc->id}}"> 
-        <b>{{$loadc->loadnumber}} : {{$loadc->load_title}}</b></span>
-        </button>
-      </h5>
-    </div>
-
-    <div id="{{$loadc->loadnumber}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-
-      <?php
-                    
-              if(!empty($loadc->job_id)){
-                  $expjob_ids=explode(',',$loadc->job_id);   
-              }else{
-                  $expjob_ids=explode(',',$loadc->car_delivery_id);
-              }                                     
-                                 
-                                 
-            if($expjob_ids)
-            {
-              foreach($expjob_ids as $expjob_id) 
-              {
-                  
-                  $job=DB::table('jobs')->where('id',$expjob_id)->first();
-                  
-                    if(!empty($job))
-                {            
-                  $customernames=DB::table('users')->where('id',$job->user_id)->first();
-                  $lanname=DB::table('lanes')->where('id',$job->lane_id)->first();       
-                  
-                 }                                 
-                                     
-                    ?>  
-                    
-               
+           <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event sss' >
+              
+            
+                <?php
+                       
+                       if(!empty($loadc->job_id)){
+                           $expoid=explode(',',$loadc->job_id);   
+                       }else{
+                           $expoid=explode(',',$loadc->car_delivery_id);                   
+                             }
+                           
+                         
+                                    
+                            
+                            if($expoid)
+                            {
+                              foreach($expoid as $expjob_id) 
+                              {
+                              $job=DB::table('jobs')->where('id',$expjob_id)->first();
+          
+                              if(!empty($job))
+                          {            
+                            $customernames=DB::table('users')->where('id',$job->user_id)->first();
+                            $lanname=DB::table('lanes')->where('id',$job->lane_id)->first();       
+                            
+                            }  
+                                  
+                                  
+                                
+                                
+                                  ?>    
                @if($job)
-                                        
-              <div class='fc-event-main box'>        
-        
-               <p>  Customer Name : @if(!empty($customernames)){{ $customernames->name }}@endif  </p>                 
              
-               <p>  Make : {{ $job->make_model }} </p> 
-        
-               <p>  Model : {{ $job->model }}  </p> 
-        
-               <p>  Reg Number : {{ $job->reg }} </p> 
-        
-        
-               <p>  Collection Address :  {{ $job->collection_address }} </p> 
-        
-        
-               <p>    Lane :  @if(!empty($lanname)) {{ $lanname->lane_number }} @endif </p> 
-            
+            <div class='fc-event-main' >      
+                
             
              
-            
-            </div>
-       
-              @endif
-                      
-                       <?php
-                         }
-                     }
-                     ?>
-     
-      </div>
-    </div>
-  </div>
-
-  @endforeach
-     </div>
-</div>
+                <p>  Customer Name : @if(!empty($customernames)){{ $customernames->name }}@endif  </p>                
+                    
+                <p>  Make : {{ $job->make_model }} </p> 
+              
+                <p>  Model : {{ $job->model }}  </p> 
+              
+                <p>  Reg Number : {{ $job->reg }} </p>           
+              
+                  <p>  Collection Address :  {{ $job->collection_address }} </p>           
+              
+                  <p>   Lane :  @if(!empty($lanname)) {{ $lanname->lane_number }} @endif </p>              
+                
+               
+             </div>
+          
+                 @endif
+                         
+                          <?php
+                            }
+                        }
+                        ?>         
+              
+          
+          
+           </div>
+         
+         
+         
+         
+         
+         
+           @endforeach
+ 
+ 
+     </div>  <!-- accordin close -->
+</div>       <!-- extrnal-events close -->
 
               
 
@@ -1770,6 +1768,14 @@ function drop(ev,driverid,d,m,y) {
   window.location.href='{!! asset("getpdfbyload")!!}/'+load_id;
 
  } 
+
+ function showhide(dis){
+   alert(dis);
+   $(".sss").slideToggle();
+
+
+
+ }
  
  
 </script>

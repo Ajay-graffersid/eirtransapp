@@ -22,6 +22,26 @@
    }
 ?>
 
+<?php
+    //$notification_details=DB::select('select *from loadcontener where status=? and type=? and shipping_type=?',[2,2,1]);
+    $notification_details = App\models\Loadcontener::where('status', '=', 2)
+              ->where('type', '=', 2)
+               ->where('shipping_type', '=', 1)
+              ->get();
+
+          $count=0; 
+      foreach($notification_details as $d)
+      {
+          $chk= DB::select('select *from carsfordelivery where loadcontener_id=?',[$d->id]);
+              if(empty($chk))
+              {
+                $count++;                            
+                
+              }
+
+      }
+                ?>
+
 <div class="header navbar">
         <div class="header-container">
           <ul class="nav-left">
@@ -44,41 +64,43 @@
             
         <!--  </ul>-->
         <!--</li>-->
-        
+        <?php
+          $noti_count =$count;  
+           ?>
       <li class="notifications dropdown">
-        <?php //if($noti_count > 0){ ?>
-          <span class="counter bgc-red">{{--$noti_count--}}</span> 
-        <?php //} ?><a href="#" class="dropdown-toggle no-after" data-toggle="dropdown"><i class="ti-bell"></i></a>
+        <?php if($noti_count > 0){ ?>
+          <span class="counter bgc-red">{{$noti_count}}</span> 
+        <?php } ?><a href="#" class="dropdown-toggle no-after" data-toggle="dropdown"><i class="ti-bell"></i></a>
           <ul class="dropdown-menu">
             <li class="pX-20 pY-15 bdB"><i class="ti-bell pR-10"></i> <span class="fsz-sm fw-600 c-grey-900">Notifications</span></li>
             <li>
               <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
 
            <?php
-   //// $notification_details=DB::select('select *from loadcontener where status=? and type=?',[2,2]);
-          //$count=0; $i=0;
-      // foreach($notification_details as $d)
-      // {
-      //     $chk= DB::select('select *from carsfordelivery where loadcontener_id=?',[$d->id]);
-      //                      if(empty($chk))
-      //                      {
-      //                        $count++;
-      //                        $i++;
-                             
+     $notification_details=DB::select('select *from loadconteners where status=? and type=?',[2,2]);
+          $count=0; $i=0;
+      foreach($notification_details as $d)
+      {
+          $chk= DB::select('select *from carsfordelivery where loadcontener_id=?',[$d->id]);
+                           if(empty($chk))
+                           {
+                             $count++;
+                             $i++;
+                            
                              ?>
                 <li>
                   <a href="{!! asset('notification_details/list') !!}" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100 green_mark">
                     <div class="peer mR-15"><img class="w-3r bdrs-50p" src="../../../randomuser.me/api/portraits/men/1.jpg" alt=""></div>
-                    <div class="peer peer-greed"><span><span class="c-grey-600 txt_white">Load {{--$d->loadnumber--}} &nbsp; {{--$d->load_title--}} has been collected</span></span>
-                      <p class="m-0"><small class="fsz-xs">{{--$d->updated_at--}}</small></p>
+                    <div class="peer peer-greed"><span><span class="c-grey-600 txt_white">Load {{$d->loadnumber}} &nbsp; {{$d->load_title}} has been collected</span></span>
+                      <p class="m-0"><small class="fsz-xs">{{$d->updated_at}}</small></p>
                     </div>
                   </a>
                 </li>
               <?php 
                                
-                //  }
+                 }
           
-            //  }
+             }
               ?>
                 
              

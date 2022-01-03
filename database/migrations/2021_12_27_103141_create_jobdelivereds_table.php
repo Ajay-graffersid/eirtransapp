@@ -16,7 +16,7 @@ class CreateJobdeliveredsTable extends Migration
         Schema::create('jobdelivereds', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('driver_id')->nullable()->unsigned();
-            $table->bigInteger('load_id')->nullable()->unsigned();
+            $table->bigInteger('loadcontener_id')->nullable()->unsigned();
             $table->bigInteger('job_id')->nullable()->unsigned();
             $table->string('date_time')->nullable();
             $table->string('email')->nullable();
@@ -24,7 +24,7 @@ class CreateJobdeliveredsTable extends Migration
 
             $table->timestamps();
             $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade'); 
-            $table->foreign('load_id')->references('id')->on('loadconteners')->onDelete('cascade'); 
+            $table->foreign('loadcontener_id')->references('id')->on('loadconteners')->onDelete('cascade'); 
             $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade'); 
         });
     }
